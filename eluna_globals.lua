@@ -1,19 +1,39 @@
 --[[
+    ============================================================
+    脚本名称: Eluna全局变量定义 (Eluna Global Definitions)
+    脚本功能: 
+        这个脚本定义了Eluna脚本中常用的全局常量，
+        包括时间常量、语言常量、账户类型、对象字段、
+        物品属性、车辆标志、天气状态、邮件系统等。
+
+    主要功能:
+        1. 定义时间常量 (MINUTE, HOUR, DAY, etc.)
+        2. 定义语言/区域常量 (LOCALE_*)
+        3. 定义账户类型常量 (SEC_*)
+        4. 定义对象字段常量 (OBJECT_FIELD_*, UNIT_FIELD_*, etc.)
+        5. 定义物品相关常量 (ITEM_*, INVTYPE_*, etc.)
+        6. 定义车辆/天气/邮件/LFG等系统常量
+
+    使用说明:
+        在其他脚本中可以直接使用这些常量名称，
+        无需重复定义，提高代码可读性和可维护性。
+    ============================================================
+    
     EmuDevs <http:emudevs.com/forum.php>
     Eluna Lua Engine <https://github.com/ElunaLuaEngine/Eluna>
     Eluna Scripts <https://github.com/ElunaLuaEngine/Scripts>
     Eluna Wiki <http://wiki.emudevs.com/doku.php?id=eluna>
 
-    Eluna Globals
+    Eluna全局变量 (Eluna Globals)
     
     Copyright (C) 2014 EmuDevs <http://www.emudevs.com/>
 --]]
 --------------------------------------------------------
 --[[
-     COMMON
+     通用常量 (COMMON)
 --]]
 --------------------------------------------------------
--- TIME CONSTANTS
+-- 时间常量 (TIME CONSTANTS)
 MINUTE          = 60
 HOUR            = MINUTE*60
 DAY             = HOUR*24
