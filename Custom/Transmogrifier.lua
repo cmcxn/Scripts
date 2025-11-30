@@ -1,52 +1,85 @@
 --[[
+============================================================
+脚本名称: 幻化系统 (Transmogrification System)
+脚本功能: 
+    这是一个装备幻化系统脚本，允许玩家通过对话菜单
+    将装备的外观更改为其他物品的外观。
+
+主要功能:
+    1. 支持将装备外观幻化为背包中其他兼容物品的外观
+    2. 幻化需要消耗金币或代币
+    3. 支持移除单件装备或所有装备的幻化效果
+    4. 幻化数据保存到数据库，重新登录后仍然有效
+    5. 支持多种装备类型和品质设置
+
+配置说明:
+    - NPC_Entry: 幻化NPC的Entry ID
+    - RequireGold: 金币需求模式 (0=免费, 1=按物品价格, 2=固定价格)
+    - GoldModifier: 金币价格倍数
+    - GoldCost: 固定金币价格
+    - RequireToken: 是否需要代币
+    - TokenEntry: 代币物品Entry ID
+    - TokenAmount: 代币数量
+    - Qualities: 允许幻化的物品品质
+
+作者: Rochet2
+版本: 4.3
+适用于: Classic & TBC & WoTLK
+============================================================
+--]]
+
+--[[
 4.3
-Transmogrification for Classic & TBC & WoTLK - Gossip Menu
-By Rochet2
+经典/TBC/巫妖王版本的幻化系统 - 对话菜单
+(Transmogrification for Classic & TBC & WoTLK - Gossip Menu)
+作者: Rochet2 (By Rochet2)
 
-Eluna version
+Eluna版本 (Eluna version)
 
-TODO:
-Make DB saving even better (Deleting)? What about coding?
+待办事项 (TODO):
+让数据库保存更好（删除）？代码方面呢？
+修复费用计算公式
 
-Fix the cost formula
+遥远未来的待办事项 (TODO in the distant future):
+品质要求是否正确？暴雪可能已更改品质要求。
+什么可以用作来源或目标..？
 
-TODO in the distant future:
+无法幻化 (Cant transmogrify):
+荒谬的物品 -- Foereaper: 用鱼捅人会很有趣
+-- 想不到任何好的方法来轻松处理这个问题
 
-Are the qualities right? Blizzard might have changed the quality requirements.
-What can and cant be used as source or target..?
-
-Cant transmogrify:
-rediculus items -- Foereaper: would be fun to stab people with a fish
--- Cant think of any good way to handle this easily
-
-Cataclysm:
-Test on cata : implement UI xD?
-Item link icon to Are You sure text
+大地的裂变 (Cataclysm):
+在大灾变上测试：实现UI xD?
+物品链接图标添加到"你确定吗"文本
 ]]
 
-local NPC_Entry = 60000
+local NPC_Entry = 60000 -- 幻化NPC的Entry ID (Transmogrifier NPC entry ID)
 
-local RequireGold = 1
-local GoldModifier = 1.0
-local GoldCost = 100000
+-- 金币需求设置 (Gold requirement settings)
+local RequireGold = 1    -- 0=免费, 1=按物品出售价格计算, 2=固定价格 (0=free, 1=by sell price, 2=fixed)
+local GoldModifier = 1.0 -- 金币价格倍数 (Gold price modifier)
+local GoldCost = 100000  -- 固定金币价格(铜币) (Fixed gold cost in copper)
 
-local RequireToken = false
-local TokenEntry = 49426
-local TokenAmount = 1
+-- 代币需求设置 (Token requirement settings)
+local RequireToken = false  -- 是否需要代币 (Whether to require token)
+local TokenEntry = 49426    -- 代币物品Entry ID (Token item entry ID)
+local TokenAmount = 1       -- 代币数量 (Token amount)
 
-local AllowMixedArmorTypes = false
-local AllowMixedWeaponTypes = false
+-- 允许混合类型设置 (Allow mixed types settings)
+local AllowMixedArmorTypes = false  -- 允许混合护甲类型 (Allow mixed armor types)
+local AllowMixedWeaponTypes = false -- 允许混合武器类型 (Allow mixed weapon types)
 
+-- 允许幻化的物品品质设置 (Allowed item qualities for transmogrification)
 local Qualities =
 {
-    [0]  = false, -- AllowPoor
-    [1]  = false, -- AllowCommon
-    [2]  = true , -- AllowUncommon
-    [3]  = true , -- AllowRare
-    [4]  = true , -- AllowEpic
-    [5]  = false, -- AllowLegendary
-    [6]  = false, -- AllowArtifact
-    [7]  = true , -- AllowHeirloom
+    [0]  = false, -- 劣质 (AllowPoor)
+    [1]  = false, -- 普通 (AllowCommon)
+    [2]  = true , -- 优秀 (AllowUncommon)
+    [3]  = true , -- 精良 (AllowRare)
+    [4]  = true , -- 史诗 (AllowEpic)
+    [5]  = false, -- 传说 (AllowLegendary)
+    [6]  = false, -- 神器 (AllowArtifact)
+    [7]  = true , -- 传家宝 (AllowHeirloom)
 }
 
 local EQUIPMENT_SLOT_START        = 0
