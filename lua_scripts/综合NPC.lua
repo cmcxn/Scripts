@@ -329,7 +329,7 @@ local Menu={
 		{TP, "雷霆崖",  1, -1274.45, 71.8601, 128.159, 2.80623,TEAM_HORDE},
 		{TP, "幽暗城", 0, 1633.75, 240.167, -43.1034, 6.26128,TEAM_HORDE},
 	
-		-- {FUNC, "传送回家", 		Stone.GoHome,	GOSSIP_ICON_CHAT,		false,"是否传送回|cFFF0F000家|r ?"},
+		{FUNC, "传送回家", 		Stone.GoHome,	GOSSIP_ICON_CHAT,		false,"是否传送回|cFFF0F000家|r ?"},
 		-- {FUNC, "记录位置", 		Stone.SetHome,	GOSSIP_ICON_INTERACT_1, false,"是否设置当前位置为|cFFF0F000家|r ?"},
 		-- {FUNC, "购买新手装备", 		Stone.GoGMIsland,	GOSSIP_ICON_CHAT,		false,"是否传送到|cFFF0F000GM岛新手装备|r ?"},
 		--{FUNC, "在线银行", 		Stone.OpenBank,	GOSSIP_ICON_MONEY_BAG},
