@@ -29,7 +29,7 @@ local function removePlayerMoney(player, money) -- 减去玩家积分
 end
 
 local function PlayerBoost(event, player) -- 玩家激励
-    local boost_money = 2  -- 每次加2分
+    local boost_money = 1  -- 每次加1分
     addPlayerMoney(player, boost_money)  -- 增加积分
     local moneys = getPlayerMoney(player)  -- 获取当前积分
     player:SendBroadcastMessage(string.format("在线30分钟获得%d积分, 当前余额：%d", boost_money, moneys))
@@ -133,24 +133,24 @@ local function mainMenu(event, player, creature)
 	player:GossipMenuAddItem(4, "辅助增益", 3,0 )	 
 	player:GossipMenuAddItem(4, "稀有坐骑", 4,0 )	 
 	player:GossipMenuAddItem(4, "传说武器", 5,0 )	 	
-	player:GossipMenuAddItem(4, "兑换金币", 6,0 )	
-	player:GossipMenuAddItem(4, "兑换积分", 66,0 )	
-	player:GossipMenuAddItem(4, "瞬飞服务", 7,0 )	
-    player:GossipMenuAddItem(4, "陪玩服务", 8,0 )	  	
+	-- player:GossipMenuAddItem(4, "兑换金币", 6,0 )	
+	-- player:GossipMenuAddItem(4, "兑换积分", 66,0 )	
+	-- player:GossipMenuAddItem(4, "瞬飞服务", 7,0 )	
+    -- player:GossipMenuAddItem(4, "陪玩服务", 8,0 )	  	
 	player:GossipMenuAddItem(0, "当前账号积分：|cFF000080"..getPlayerMoney(player).."|r", 0,0 )	 	
-	local endDate = getPlayerFightString(player)
-	if(endDate == 0) then		 
-		player:GossipMenuAddItem(0, "当前账号：|cFF000080瞬飞服务未开通|r", 0,0 )	 	
-	else		 
-		player:GossipMenuAddItem(0, "瞬飞服务过期时间：|cFF000080"..endDate.."|r", 0,0 )	 	
-	end
+	-- local endDate = getPlayerFightString(player)
+	-- if(endDate == 0) then		 
+	-- 	player:GossipMenuAddItem(0, "当前账号：|cFF000080瞬飞服务未开通|r", 0,0 )	 	
+	-- else		 
+	-- 	player:GossipMenuAddItem(0, "瞬飞服务过期时间：|cFF000080"..endDate.."|r", 0,0 )	 	
+	-- end
 	
-	endDate = getPlayerPartyBotString(player)
-	if(endDate == 0) then		 
-		player:GossipMenuAddItem(0, "当前账号：|cFF000080机器人陪玩未开通|r", 0,0 )	 	
-	else		 
-		player:GossipMenuAddItem(0, "机器人陪玩过期时间：|cFF000080"..endDate .."|r", 0,0 )	 	
-	end	
+	-- endDate = getPlayerPartyBotString(player)
+	-- if(endDate == 0) then		 
+	-- 	player:GossipMenuAddItem(0, "当前账号：|cFF000080机器人陪玩未开通|r", 0,0 )	 	
+	-- else		 
+	-- 	player:GossipMenuAddItem(0, "机器人陪玩过期时间：|cFF000080"..endDate .."|r", 0,0 )	 	
+	-- end	
     player:GossipSendMenu(100, creature, menu_id)
 end
 
@@ -498,7 +498,7 @@ local function OnGossipSelect(event, player, creature, MenuGroup, MenuID)
 	
 	-----瞬飞服务一级菜单------
 	if MenuGroup==7 then
-		player:GossipMenuAddItem(4, "【限时特惠】开通1周瞬飞 |cFFFF000010积分|r", 70,0 )	
+		-- player:GossipMenuAddItem(4, "【限时特惠】开通1周瞬飞 |cFFFF000010积分|r", 70,0 )	
 		player:GossipMenuAddItem(4, "开通1天瞬飞 |cFFFF000020积分|r", 71,0 )	
 		player:GossipMenuAddItem(4, "开通7天瞬飞 |cFFFF0000100积分", 72,0 )	
 		player:GossipMenuAddItem(4, "开通30天瞬飞|cFFFF0000300积分", 73,0 )
@@ -1869,7 +1869,7 @@ RegisterCreatureGossipEvent(NPC_Entry, 1, OnGossipHello)
 RegisterCreatureGossipEvent(NPC_Entry, 2, OnGossipSelect)
  
 
--- RegisterPlayerEvent(100, PlayerBoost)--奖励
+RegisterPlayerEvent(100, PlayerBoost)--奖励
 
 print(" PlayerBoost init ok113")
 
