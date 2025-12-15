@@ -135,15 +135,15 @@ local function mainMenu(event, player, creature)
 	player:GossipMenuAddItem(4, "传说武器", 5,0 )	 	
 	-- player:GossipMenuAddItem(4, "兑换金币", 6,0 )	
 	-- player:GossipMenuAddItem(4, "兑换积分", 66,0 )	
-	-- player:GossipMenuAddItem(4, "瞬飞服务", 7,0 )	
+	player:GossipMenuAddItem(4, "瞬飞服务", 7,0 )	
     -- player:GossipMenuAddItem(4, "陪玩服务", 8,0 )	  	
 	player:GossipMenuAddItem(0, "当前账号积分：|cFF000080"..getPlayerMoney(player).."|r", 0,0 )	 	
-	-- local endDate = getPlayerFightString(player)
-	-- if(endDate == 0) then		 
-	-- 	player:GossipMenuAddItem(0, "当前账号：|cFF000080瞬飞服务未开通|r", 0,0 )	 	
-	-- else		 
-	-- 	player:GossipMenuAddItem(0, "瞬飞服务过期时间：|cFF000080"..endDate.."|r", 0,0 )	 	
-	-- end
+	local endDate = getPlayerFightString(player)
+	if(endDate == 0) then		 
+		player:GossipMenuAddItem(0, "当前账号：|cFF000080瞬飞服务未开通|r", 0,0 )	 	
+	else		 
+		player:GossipMenuAddItem(0, "瞬飞服务过期时间：|cFF000080"..endDate.."|r", 0,0 )	 	
+	end
 	
 	-- endDate = getPlayerPartyBotString(player)
 	-- if(endDate == 0) then		 
